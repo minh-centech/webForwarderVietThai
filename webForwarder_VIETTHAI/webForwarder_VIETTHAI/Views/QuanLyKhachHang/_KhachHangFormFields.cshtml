@@ -1,0 +1,102 @@
+@model KhachHangFormViewModel
+
+<div asp-validation-summary="ModelOnly" class="app-alert app-alert--danger" role="alert" style="margin: 20px 20px 0;">
+    <i class="bi bi-exclamation-circle" aria-hidden="true"></i>
+</div>
+
+<div class="form-grid">
+    <div class="form-field">
+        <label asp-for="MaKH"></label>
+        @if (Model.IsNew)
+        {
+            <input asp-for="MaKH" class="app-input" autocomplete="off" />
+            <span asp-validation-for="MaKH" class="field-validation-error"></span>
+        }
+        else
+        {
+            <input class="app-input" value="@Model.MaKH" disabled />
+            <input type="hidden" asp-for="MaKH" />
+        }
+    </div>
+
+    <div class="form-field">
+        <label asp-for="LoaiTaiKhoan"></label>
+        <select asp-for="LoaiTaiKhoan" class="app-select" disabled="@(!Model.IsNew)">
+            <option value="@TaiKhoan.LoaiKhachHang">Khách hàng</option>
+            <option value="@TaiKhoan.LoaiAdmin">Quản trị</option>
+        </select>
+        @if (!Model.IsNew)
+        {
+            <input type="hidden" asp-for="LoaiTaiKhoan" />
+        }
+    </div>
+
+     @if (Model.IsNew)
+    {
+        <div class="form-field form-field--full" id="fieldDaiLy">
+            <label asp-for="IDDanhMucDaiLy"></label>
+            @if (Model.DanhSachDaiLy.Count > 0)
+            {
+                <select asp-for="IDDanhMucDaiLy" class="app-select">
+                    <option value="">-- Chọn đại lý --</option>
+                    @foreach (var dl in Model.DanhSachDaiLy)
+                    {
+                        <option value="@dl.ID" selected="@(dl.ID == Model.IDDanhMucDaiLy)">@dl.HienThi</option>
+                    }
+                </select>
+                <span asp-validation-for="IDDanhMucDaiLy" class="field-validation-error"></span>
+            }
+            else
+            {
+                <input asp-for="IDDanhMucDaiLy" class="app-input" type="number" min="1" inputmode="numeric"  />
+                <span asp-validation-for="IDDanhMucDaiLy" class="field-validation-error"></span>
+            }
+        </div>
+    }
+
+    <div class="form-field form-field--full">
+        <label asp-for="TenKH"></label>
+        <input asp-for="TenKH" class="app-input"/>
+        <span asp-validation-for="TenKH" class="field-validation-error"></span>
+    </div>
+
+    <div class="form-field">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="app-input"/>
+        <span asp-validation-for="Email" class="field-validation-error"></span>
+    </div>
+
+    <div class="form-field">
+        <label asp-for="SoDienThoai"></label>
+        <input asp-for="SoDienThoai" class="app-input"/>
+        <span asp-validation-for="SoDienThoai" class="field-validation-error"></span>
+    </div>
+
+    @if (Model.IsNew)
+    {
+        <div class="form-field form-field--full">
+            <label asp-for="MatKhau">@(Model.IsNew ? "Mật khẩu" : "Đặt mật khẩu mới")</label>
+            <input asp-for="MatKhau" class="app-input" autocomplete="new-password"/>
+            <span asp-validation-for="MatKhau" class="field-validation-error"></span>
+        </div>
+    }
+</div>
+
+<div class="form-actions">
+    <a class="app-btn" asp-action="Index">Huỷ</a>
+    <button type="submit" class="app-btn app-btn--primary">
+        <i class="bi bi-check-lg" aria-hidden="true"></i> @(Model.IsNew ? "Thêm khách hàng" : "Lưu thay đổi")
+    </button>
+</div>
+
+<script>
+    // Ẩn ô "ID đại lý" khi chọn loại Quản trị
+    (function () {
+        var loai = document.getElementById('LoaiTaiKhoan');
+        var field = document.getElementById('fieldDaiLy');
+        if (!loai || !field) return;
+        function cap() { field.style.display = loai.value === '@TaiKhoan.LoaiAdmin' ? 'none' : ''; }
+        loai.addEventListener('change', cap);
+        cap();
+    })();
+</script>

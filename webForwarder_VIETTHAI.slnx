@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="webAPI_Forwarder/cenBUS/cenBUS.csproj" Id="f09d8c46-7810-464b-8e04-5faba1e1e2ba" />
+  <Project Path="webAPI_Forwarder/cenDTO/cenDTO.csproj" Id="2f815fed-7cf3-4122-a98f-33ccc907d90a" />
+  <Project Path="webAPI_Forwarder/WebAPI/WebAPI.csproj" />
+  <Project Path="webForwarder_VIETTHAI/webForwarder_Report/webForwarder_Report.csproj" Id="cdf8f9b3-a1aa-4ec8-bf71-9c015f8069d9" />
+  <Project Path="webForwarder_VIETTHAI/webForwarder_VIETTHAI/webForwarder_VIETTHAI.csproj" />
+</Solution>

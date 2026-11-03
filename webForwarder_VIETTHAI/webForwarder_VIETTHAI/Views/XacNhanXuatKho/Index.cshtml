@@ -1,0 +1,121 @@
+﻿@model HangXuatKhauListViewModel<XacNhanXuatKhoRow>
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Xác nhận hoàn thành xuất kho";
+    var items = Model.Items;
+    var tu = Model.TuNgay.ToString("yyyy-MM-dd");
+    var den = Model.DenNgay.ToString("yyyy-MM-dd");
+}
+
+<div class="page-head">
+    <div>
+        <h1>Danh sách xác nhận hoàn thành xuất kho hàng nhập khẩu</h1>
+    </div>
+    <div class="page-head__actions">
+        @if (items.Count > 0)
+        {
+            <a class="app-btn" asp-action="XuatExcel" asp-route-tuNgay="@tu" asp-route-denNgay="@den">
+                <i class="bi bi-file-earmark-excel" aria-hidden="true"></i> Xuất Excel
+            </a>
+        }
+        else
+        {
+            <button type="button" class="app-btn" disabled title="Không có dữ liệu để xuất">
+                <i class="bi bi-file-earmark-excel" aria-hidden="true"></i> Xuất Excel
+            </button>
+        }
+    </div>
+</div>
+
+<form method="get" class="app-card app-filter">
+    <label>
+        Từ ngày
+        <input type="date" name="tuNgay" class="app-input" value="@tu" />
+    </label>
+    <label>
+        Đến ngày
+        <input type="date" name="denNgay" class="app-input" value="@den" />
+    </label>
+    <button type="submit" class="app-btn app-btn--primary">
+        <i class="bi bi-funnel" aria-hidden="true"></i> Lọc
+    </button>
+</form>
+
+<div class="app-card">
+    @if (items.Count == 0)
+    {
+        <div class="app-empty">
+            <i class="bi bi-inbox" aria-hidden="true"></i>
+            Không có phiếu nào trong khoảng ngày đã chọn.
+        </div>
+    }
+    else
+    {
+        <div class="app-table-wrap">
+            <table class="app-table app-table--nowrap">
+                <thead>
+                    <tr>
+                        <th>Số</th>
+                        <th>Ngày lập</th>
+                        <th>Ngày giờ xác nhận xuất kho</th>
+                        <th>Số vận đơn</th>
+                        <th>Chủ hàng</th>
+                        <th>Mô tả hàng hoá</th>
+                        <th>Số container</th>
+                        <th>Số seal</th>
+                        <th>Loại container</th>
+                        <th>Tên tàu</th>
+                        <th>Số chuyến</th>
+                        <th>Ngày tàu đến</th>
+                        <th>Hãng tàu</th>
+                        <th class="num">Số lượng xuất</th>
+                        <th>ĐVT</th>
+                        <th class="num">Khối lượng xuất</th>
+                        <th class="num">CBM xuất</th>
+                        <th>Ghi chú</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var r in items)
+                    {
+                        <tr>
+                            <td><strong>@r.So</strong></td>
+                            <td>@r.NgayLap?.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td>@r.NgayGioXacNhanXuatKho?.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td>@r.SoVanDon</td>
+                            <td class="wrap">@r.TenChuHang</td>
+                            <td class="wrap">@r.MoTaHangHoa</td>
+                            <td><strong>@r.SoContainer</strong></td>
+                            <td>@r.SoSeal</td>
+                            <td>
+                                @if (!string.IsNullOrWhiteSpace(r.MaDanhMucLoaiContainer))
+                                {
+                                    <span class="badge badge--blue">@r.MaDanhMucLoaiContainer</span>
+                                }
+                            </td>
+                            <td>@r.TenTau</td>
+                            <td>@r.SoChuyen</td>
+                            <td>@r.NgayTauDen?.ToString("dd/MM/yyyy")</td>
+                            <td>@r.MaDanhMucHangTau</td>
+                            <td class="num"><strong>@r.SoLuongKienXuat?.ToString("N0")</strong></td>
+                            <td>@r.MaDanhMucDonViTinh</td>
+                            <td class="num"><strong>@r.KhoiLuongXuat?.ToString("N0")</strong></td>
+                            <td class="num"><strong>@r.CBMXuat?.ToString("N3")</strong></td>
+                            <td class="wrap">@r.GhiChu</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="13">Tổng @items.Count phiếu</td>
+                        <td class="num">@items.Sum(x => x.SoLuongKienXuat ?? 0).ToString("N0")</td>
+                        <td></td>
+                        <td class="num">@items.Sum(x => x.KhoiLuongXuat ?? 0).ToString("N0")</td>
+                        <td class="num">@items.Sum(x => x.CBMXuat ?? 0).ToString("N3")</td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    }
+</div>

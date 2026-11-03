@@ -1,0 +1,14 @@
+﻿@model string
+@if (string.IsNullOrWhiteSpace(Model))
+{
+    <span class="app-muted-text">-</span>
+}
+else
+{
+    <span class="chips">
+        @foreach (var b in Model.Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
+        {
+            <span class="chip">@b</span>
+        }
+    </span>
+}

@@ -1,0 +1,141 @@
+﻿@model HangXuatKhauListViewModel<XacNhanNhapKhoRow>
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Xác nhận hoàn thành nhập kho";
+    var items = Model.Items;
+    var tu = Model.TuNgay.ToString("yyyy-MM-dd");
+    var den = Model.DenNgay.ToString("yyyy-MM-dd");
+}
+
+<div class="page-head">
+    <div>
+        <h1>Danh sách xác nhận hoàn thành nhập kho hàng xuất khẩu </h1>
+    </div>
+    <div class="page-head__actions">
+        @if (items.Count > 0)
+        {
+            <a class="app-btn" asp-action="XuatExcel" asp-route-tuNgay="@tu" asp-route-denNgay="@den">
+                <i class="bi bi-file-earmark-excel" aria-hidden="true"></i> Xuất Excel
+            </a>
+        }
+        else
+        {
+            <button type="button" class="app-btn" disabled title="Không có dữ liệu để xuất">
+                <i class="bi bi-file-earmark-excel" aria-hidden="true"></i> Xuất Excel
+            </button>
+        }
+    </div>
+</div>
+
+<form method="get" class="app-card app-filter">
+    <label>
+        Từ ngày
+        <input type="date" name="tuNgay" class="app-input" value="@tu" />
+    </label>
+    <label>
+        Đến ngày
+        <input type="date" name="denNgay" class="app-input" value="@den" />
+    </label>
+    <button type="submit" class="app-btn app-btn--primary">
+        <i class="bi bi-funnel" aria-hidden="true"></i> Lọc
+    </button>
+</form>
+
+
+<div class="app-card">
+    @if (items.Count == 0)
+    {
+        <div class="app-empty">
+            <i class="bi bi-inbox" aria-hidden="true"></i>
+            Không có phiếu nào trong khoảng ngày đã chọn.
+        </div>
+    }
+    else
+    {
+        <div class="app-table-wrap">
+            <table class="app-table app-table--nowrap">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Số</th>
+                        <th>Ngày lập</th>
+                        <th>Ngày giờ Xác nhận hoàn thành</th>
+                        <th>Số lệnh nhập kho hàng xuất khẩu</th>
+                        <th>Booking</th>
+                        <th>Số xe</th>
+                        <th class="num">Số lượng đăng ký nhập</th>
+                        <th class="num">Số lượng nhập</th>
+                        <th class="num">Khối lượng đăng ký nhập</th>
+                        <th class="num">Khối lượng nhập</th>
+                        <th class="num">CBM đăng ký nhập</th>
+                        <th class="num">CBM nhập</th>
+                        <th class="num">Số lượng Pallet</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var r in items)
+                    {
+                        <tr>
+                            <td>
+                                <details class="app-dd">
+                                    <summary class="app-btn app-btn--sm">
+                                        <i class="bi bi-printer" aria-hidden="true"></i> In phiếu <i class="bi bi-chevron-down" aria-hidden="true"></i>
+                                    </summary>
+                                    <div class="app-dd__menu">
+                                        <a href="@Url.Action("TaiPDF", "XacNhanNhapKho", new { id = r.ID, tuNgay = tu, denNgay = den })" target="_blank" rel="noopener">
+                                            <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i> In phiếu thường
+                                        </a>
+                                       @*<a href="@Url.Action("TaiPDF", "XacNhanNhapKho", new { id = r.ID, isKMG = true, tuNgay = tu, denNgay = den })" target="_blank" rel="noopener">
+                                            <i class="bi bi-file-earmark-pdf-fill" aria-hidden="true"></i> In phiếu KMG
+                                        </a>*@ 
+                                    </div>
+                                </details>
+                            </td>
+                            <td><strong>@r.So</strong></td>
+                            <td>@r.NgayLap?.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td>@r.NgayGioXacNhanHoanThanh?.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td>@r.SoLenhNhapKhoHangXuatKhau</td>
+                            <td class="wrap"><partial name="_Bookings" model="r.Booking" /></td>
+                            <td>@r.SoXe</td>
+                            <td class="num">@r.SoLuongDangKyNhap.ToString("N0")</td>
+                            <td class="num"><strong>@r.SoLuongNhap.ToString("N0")</strong></td>
+                            <td class="num">@r.KhoiLuongDangKyNhap.ToString("N0")</td>
+                            <td class="num"><strong>@r.KhoiLuongNhap.ToString("N0")</strong></td>
+                            <td class="num">@r.CBMDangKyNhap.ToString("N3")</td>
+                            <td class="num"><strong>@r.CBMNhap.ToString("N3")</strong></td>
+                            <td class="num">@r.SoLuongPallet.ToString("N0")</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="7">Tổng @items.Count phiếu</td>
+                        <td class="num">@items.Sum(x => x.SoLuongDangKyNhap).ToString("N0")</td>
+                        <td class="num">@items.Sum(x => x.SoLuongNhap).ToString("N0")</td>
+                        <td class="num">@items.Sum(x => x.KhoiLuongDangKyNhap).ToString("N0")</td>
+                        <td class="num">@items.Sum(x => x.KhoiLuongNhap).ToString("N0")</td>
+                        <td class="num">@items.Sum(x => x.CBMDangKyNhap).ToString("N3")</td>
+                        <td class="num">@items.Sum(x => x.CBMNhap).ToString("N3")</td>
+                        <td class="num">@items.Sum(x => x.SoLuongPallet).ToString("N0")</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        /* Menu "In phiếu" */
+        document.addEventListener('toggle', function (e) {
+            if (!(e.target instanceof HTMLDetailsElement) || !e.target.classList.contains('app-dd') || !e.target.open) return;
+            document.querySelectorAll('details.app-dd[open]').forEach(function (d) { if (d !== e.target) d.open = false; });
+        }, true);
+        document.addEventListener('click', function (e) {
+            document.querySelectorAll('details.app-dd[open]').forEach(function (d) {
+                if (!d.contains(e.target) || e.target.closest('.app-dd__menu a')) d.open = false;
+            });
+        });
+    </script>
+}
+

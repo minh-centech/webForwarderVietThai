@@ -1,0 +1,75 @@
+@model CapNhatThongTinViewModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Cập nhật thông tin";
+}
+
+<div class="page-head">
+    <div>
+        <h1>Cập nhật thông tin</h1>
+        <p>Mã khách hàng <strong>@Model.MaKH</strong> không thay đổi được.</p>
+    </div>
+    <div class="page-head__actions">
+        <a class="app-btn" asp-controller="Home" asp-action="Index"><i class="bi bi-arrow-left" aria-hidden="true"></i> Quay lại</a>
+    </div>
+</div>
+
+<div class="app-card app-card--narrow">
+    <form asp-action="CapNhat" method="post" novalidate>
+        <input type="hidden" asp-for="MaKH" />
+
+        <div asp-validation-summary="ModelOnly" class="app-alert app-alert--danger" role="alert" style="margin: 20px 20px 0;">
+            <i class="bi bi-exclamation-circle" aria-hidden="true"></i>
+        </div>
+
+        <div class="form-grid">
+            <div class="form-section form-field--full">Thông tin liên hệ</div>
+
+            <div class="form-field form-field--full">
+                <label asp-for="TenKH"></label>
+                <input asp-for="TenKH" class="app-input" autocomplete="organization" />
+                <span asp-validation-for="TenKH" class="field-validation-error"></span>
+            </div>
+            <div class="form-field">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="app-input" autocomplete="email" />
+                <span asp-validation-for="Email" class="field-validation-error"></span>
+            </div>
+            <div class="form-field">
+                <label asp-for="SoDienThoai"></label>
+                <input asp-for="SoDienThoai" class="app-input" autocomplete="tel" />
+                <span asp-validation-for="SoDienThoai" class="field-validation-error"></span>
+            </div>
+
+            <div class="form-section form-field--full">Xác nhận và đổi mật khẩu</div>
+
+            <div class="form-field form-field--full">
+                <label asp-for="MatKhauHienTai"></label>
+                <input asp-for="MatKhauHienTai" class="app-input" autocomplete="new-password"/>
+                <span asp-validation-for="MatKhauHienTai" class="field-validation-error"></span>
+            </div>
+            <div class="form-field">
+                <label asp-for="MatKhauMoi"></label>
+                <input asp-for="MatKhauMoi" class="app-input" autocomplete="new-password" placeholder="Tối thiểu 6 ký tự" />
+                <span asp-validation-for="MatKhauMoi" class="field-validation-error"></span>
+            </div>
+            <div class="form-field">
+                <label asp-for="XacNhanMatKhauMoi"></label>
+                <input asp-for="XacNhanMatKhauMoi" class="app-input" autocomplete="new-password" />
+                <span asp-validation-for="XacNhanMatKhauMoi" class="field-validation-error"></span>
+            </div>
+            <div class="form-field form-field--full">
+                <span class="form-hint">Không muốn đổi mật khẩu thì để trống ô "Mật khẩu mới".</span>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <a class="app-btn" asp-controller="Home" asp-action="Index">Huỷ</a>
+            <button type="submit" class="app-btn app-btn--primary"><i class="bi bi-check-lg" aria-hidden="true"></i> Lưu thay đổi</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

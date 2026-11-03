@@ -1,0 +1,51 @@
+﻿@{
+    var current = ViewContext.RouteData.Values["controller"]?.ToString();
+    string Active(string controller) => current == controller ? "active" : "";
+    var isAdmin = User.IsInRole(TaiKhoan.RoleAdmin);
+}
+<aside class="app-sidebar">
+    <a class="app-brand" asp-controller="Home" asp-action="Index">
+        <span class="app-brand__mark"><i class="bi bi-box-seam" aria-hidden="true"></i></span>
+        <span class="app-brand__text">
+            <span class="app-brand__name">VIETTHAI Forwarder</span>
+            <span class="app-brand__sub">@(isAdmin ? "Quản trị" : "Cổng khách hàng")</span>
+        </span>
+    </a>
+
+    <nav class="app-nav">
+        <a class="app-nav__link @Active("Home")" asp-controller="Home" asp-action="Index">
+            <i class="bi bi-person-badge" aria-hidden="true"></i><span>Trang chủ</span>
+        </a>
+
+        @if (isAdmin)
+        {
+            <div class="app-nav__label">Quản trị</div>
+            <a class="app-nav__link @Active("QuanLyKhachHang")" asp-controller="QuanLyKhachHang" asp-action="Index">
+                <i class="bi bi-people" aria-hidden="true"></i><span>Quản lý khách hàng</span>
+            </a>
+        }
+        else
+        {
+
+            <div class="app-nav__label">Hàng xuất khẩu</div>
+            <a class="app-nav__link @Active("XacNhanNhapKho")" asp-controller="XacNhanNhapKho" asp-action="Index">
+                <i class="bi bi-box-arrow-in-down" aria-hidden="true"></i><span>Xác nhận hoàn thành nhập kho</span>
+            </a>
+            <a class="app-nav__link @Active("XacNhanDongHang")" asp-controller="XacNhanDongHang" asp-action="Index">
+                <i class="bi bi-boxes" aria-hidden="true"></i><span>Xác nhận hoàn thành đóng hàng</span>
+            </a>
+            <a class="app-nav__link @Active("XemAnh")" asp-controller="XemAnh" asp-action="Index">
+                <i class="bi bi-images" aria-hidden="true"></i><span>Xem ảnh lệnh</span>
+            </a>
+            <div class="app-nav__label">Hàng nhập khẩu</div>
+            <a class="app-nav__link @Active("XacNhanXuatKho")" asp-controller="XacNhanXuatKho" asp-action="Index">
+                <i class="bi bi-box-arrow-up" aria-hidden="true"></i><span>Xác nhận hoàn thành xuất kho</span>
+            </a>
+        }
+        </nav>
+    <div class="app-sidebar__foot">
+        <label for="sidebarToggle" class="app-collapse" title="Thu gọn / mở rộng menu">
+            <i class="bi bi-chevron-left" aria-hidden="true"></i>
+        </label>
+    </div>
+</aside>

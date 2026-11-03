@@ -1,0 +1,18 @@
+@{
+    Layout = "_AuthLayout";
+    ViewData["Title"] = "Không có quyền";
+}
+
+<div class="auth">
+    <div class="auth-wrap">
+        <div class="auth-card">
+            <div class="auth-brand">
+                <span class="auth-brand__mark"><i class="bi bi-shield-x" aria-hidden="true"></i></span>
+                <span class="auth-brand__name">VIETTHAI Forwarder</span>
+            </div>
+            <h1 class="auth-title">Không có quyền truy cập</h1>
+            <a class="auth-btn" asp-controller="Home" asp-action="Index"><i class="bi bi-arrow-left" aria-hidden="true"></i> Về trang chủ</a>
+        </div>
+        <p class="auth-foot">© @DateTime.Now.Year VIETTHAI Forwarder</p>
+    </div>
+</div>

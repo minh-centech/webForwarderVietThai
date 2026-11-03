@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="../cenBUS/cenBUS.csproj" Id="f09d8c46-7810-464b-8e04-5faba1e1e2ba" />
+  <Project Path="../cenDTO/cenDTO.csproj" Id="2f815fed-7cf3-4122-a98f-33ccc907d90a" />
+  <Project Path="WebAPI.csproj" />
+</Solution>

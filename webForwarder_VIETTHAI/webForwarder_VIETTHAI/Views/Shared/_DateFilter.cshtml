@@ -1,0 +1,15 @@
+﻿@model DateFilterModel
+
+<form method="get" class="app-card app-filter">
+    <label>
+        Từ ngày
+        <input type="date" name="tuNgay" class="app-input" value="@(Model.TuNgay.ToString("yyyy-MM-dd"))" />
+    </label>
+    <label>
+        Đến ngày
+        <input type="date" name="denNgay" class="app-input" value="@(Model.DenNgay.ToString("yyyy-MM-dd"))" />
+    </label>
+    <button type="submit" class="app-btn app-btn--primary">
+        <i class="bi bi-funnel" aria-hidden="true"></i> Lọc
+    </button>
+</form>

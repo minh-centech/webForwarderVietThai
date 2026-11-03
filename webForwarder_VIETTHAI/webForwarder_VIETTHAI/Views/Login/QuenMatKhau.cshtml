@@ -1,0 +1,24 @@
+﻿@{
+    Layout = "_AuthLayout";
+}
+@{
+    ViewData["Title"] = "Quên mật khẩu";
+}
+
+<div class="auth">
+    <div class="auth-wrap">
+        <div class="auth-card">
+            <div class="auth-brand">
+                <span class="auth-brand__mark"><i class="bi bi-key" aria-hidden="true"></i></span>
+                <span class="auth-brand__name">VIETTHAI Forwarder</span>
+            </div>
+
+            <p class="auth-subtitle">
+                Liên hệ bộ phận IT để được cấp hoặc đặt lại mật khẩu.
+            </p>
+
+            <a class="auth-btn" asp-action="Index"><i class="bi bi-arrow-left" aria-hidden="true"></i> Quay lại đăng nhập</a>
+        </div>
+        <p class="auth-foot">© @DateTime.Now.Year VIETTHAI Forwarder</p>
+    </div>
+</div>

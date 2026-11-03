@@ -1,0 +1,33 @@
+@model KhachHangFormViewModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = Model.IsNew ? "Thêm khách hàng" : "Sửa khách hàng";
+}
+
+<div class="page-head">
+    <div>
+        <h1>@ViewData["Title"]</h1>
+    </div>
+    <div class="page-head__actions">
+        <a class="app-btn" asp-action="Index"><i class="bi bi-arrow-left" aria-hidden="true"></i> Danh sách</a>
+    </div>
+</div>
+
+<div class="app-card app-card--narrow">
+    @if (Model.IsNew)
+    {
+        <form asp-action="Them" method="post" novalidate>
+            <partial name="_KhachHangFormFields" model="Model" />
+        </form>
+    }
+    else
+    {
+        <form asp-action="Sua" asp-route-id="@Model.ID" method="post" novalidate>
+            <partial name="_KhachHangFormFields" model="Model" />
+        </form>
+    }
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

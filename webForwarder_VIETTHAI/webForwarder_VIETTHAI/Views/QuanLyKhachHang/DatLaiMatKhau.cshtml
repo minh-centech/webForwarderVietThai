@@ -1,0 +1,50 @@
+﻿@model DatLaiMatKhauViewModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Đặt lại mật khẩu";
+}
+
+<div class="page-head">
+    <div>
+        <h1>Đặt lại mật khẩu</h1>
+        <p>Khách hàng <strong>@Model.MaKH</strong></p>
+    </div>
+    <div class="page-head__actions">
+        <a class="app-btn" asp-action="Index"><i class="bi bi-arrow-left" aria-hidden="true"></i> Danh sách</a>
+    </div>
+</div>
+
+<div class="app-card app-card--narrow">
+    <form asp-action="DatLaiMatKhau" asp-route-id="@Model.ID" method="post" novalidate>
+        <input type="hidden" asp-for="MaKH" />
+        <input type="hidden" asp-for="TenKH" />
+
+        <div asp-validation-summary="ModelOnly" class="app-alert app-alert--danger" role="alert" style="margin: 20px 20px 0;">
+            <i class="bi bi-exclamation-circle" aria-hidden="true"></i>
+        </div>
+
+        <div class="form-grid">
+            <div class="form-field">
+                <label asp-for="MatKhauMoi"></label>
+                <input asp-for="MatKhauMoi" class="app-input" autocomplete="new-password" placeholder="Tối thiểu 6 ký tự" />
+                <span asp-validation-for="MatKhauMoi" class="field-validation-error"></span>
+            </div>
+            <div class="form-field">
+                <label asp-for="XacNhan"></label>
+                <input asp-for="XacNhan" class="app-input" autocomplete="new-password" />
+                <span asp-validation-for="XacNhan" class="field-validation-error"></span>
+            </div>
+            <div class="form-field form-field--full">
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <a class="app-btn" asp-action="Index">Huỷ</a>
+            <button type="submit" class="app-btn app-btn--primary"><i class="bi bi-key" aria-hidden="true"></i> Đặt mật khẩu mới</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
