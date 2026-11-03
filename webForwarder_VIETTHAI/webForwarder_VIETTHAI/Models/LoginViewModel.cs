@@ -16,5 +16,8 @@ public class LoginViewModel
     public bool RememberMe { get; set; } = false;
 
     public string? ReturnUrl { get; set; }
+
+    // Token phản hồi từ Cloudflare Turnstile
+    public string? CfTurnstileResponse { get; set; }
 }
 
