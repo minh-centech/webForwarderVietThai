@@ -13,12 +13,36 @@ var reportApiBase = new Uri(
     ?? throw new InvalidOperationException(
         "Thiếu ReportApi:BaseUrl trong appsettings.json"));
 
-builder.Services.AddHttpClient<IKhachHangApi, KhachHangApiClient>(c => c.BaseAddress = apiBase);
-builder.Services.AddHttpClient<IAuthApi, AuthApiClient>(c => c.BaseAddress = apiBase);
-builder.Services.AddHttpClient<IHangXuatKhauApi, HangXuatKhauApiClient>(c => c.BaseAddress = apiBase);
-builder.Services.AddHttpClient<IHangNhapKhauApi, HangNhapKhauApiClient>(c => c.BaseAddress = apiBase);
-builder.Services.AddHttpClient<IReportApi, ReportApi>(c => c.BaseAddress = reportApiBase);
-builder.Services.AddHttpClient<IDaiLyApi, DaiLyApiClient>(c => c.BaseAddress = apiBase);
+builder.Services.AddHttpClient<IKhachHangApi, KhachHangApiClient>(c => c.BaseAddress = apiBase).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+{
+    // Bỏ qua xác thực SSL cho môi trường test/nội bộ
+    ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
+}); ;
+builder.Services.AddHttpClient<IAuthApi, AuthApiClient>(c => c.BaseAddress = apiBase).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+{
+    // Bỏ qua xác thực SSL cho môi trường test/nội bộ
+    ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
+});
+builder.Services.AddHttpClient<IHangXuatKhauApi, HangXuatKhauApiClient>(c => c.BaseAddress = apiBase).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+{
+    // Bỏ qua xác thực SSL cho môi trường test/nội bộ
+    ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
+}); ;
+builder.Services.AddHttpClient<IHangNhapKhauApi, HangNhapKhauApiClient>(c => c.BaseAddress = apiBase).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+{
+    // Bỏ qua xác thực SSL cho môi trường test/nội bộ
+    ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
+}); ;
+builder.Services.AddHttpClient<IReportApi, ReportApi>(c => c.BaseAddress = reportApiBase).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+{
+    // Bỏ qua xác thực SSL cho môi trường test/nội bộ
+    ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
+}); ;
+builder.Services.AddHttpClient<IDaiLyApi, DaiLyApiClient>(c => c.BaseAddress = apiBase).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+{
+    // Bỏ qua xác thực SSL cho môi trường test/nội bộ
+    ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
+}); ;
 
 // API ảnh chụp theo lệnh (cenCFS-ITS) 
 var anhApiBase = new Uri(builder.Configuration["AnhApi:BaseUrl"]
