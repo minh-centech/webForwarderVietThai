@@ -33,8 +33,29 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="coreDTO">
-      <HintPath>D:\everWareHouse-VIETTHAI\coreDLL\coreDTO.dll</HintPath>
+    <Reference Include="coreBase, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\WebAPI\packages\cenCORE.1.2112026.16\lib\net472\coreBase.dll</HintPath>
+    </Reference>
+    <Reference Include="coreBUS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\WebAPI\packages\cenCORE.1.2112026.16\lib\net472\coreBUS.dll</HintPath>
+    </Reference>
+    <Reference Include="coreCommon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\WebAPI\packages\cenCORE.1.2112026.16\lib\net472\coreCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="coreControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\WebAPI\packages\cenCORE.1.2112026.16\lib\net472\coreControls.dll</HintPath>
+    </Reference>
+    <Reference Include="coreDAO, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\WebAPI\packages\cenCORE.1.2112026.16\lib\net472\coreDAO.dll</HintPath>
+    </Reference>
+    <Reference Include="coreDTO, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\WebAPI\packages\cenCORE.1.2112026.16\lib\net472\coreDTO.dll</HintPath>
+    </Reference>
+    <Reference Include="coreReportController, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\WebAPI\packages\cenCORE.1.2112026.16\lib\net472\coreReportController.dll</HintPath>
+    </Reference>
+    <Reference Include="coreUI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\WebAPI\packages\cenCORE.1.2112026.16\lib\net472\coreUI.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=10.0.0.3, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\WebAPI\packages\Microsoft.Bcl.AsyncInterfaces.10.0.3\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>

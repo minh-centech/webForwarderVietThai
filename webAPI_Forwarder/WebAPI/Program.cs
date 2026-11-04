@@ -1,3 +1,4 @@
+using Scalar.AspNetCore;
 using WebAPI.Code;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,6 +29,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.MapScalarApiReference(); // Giao diện truy cập tại /scalar/v1
 }
 app.UseHttpsRedirection();
 
