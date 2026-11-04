@@ -27,22 +27,22 @@ builder.Services.AddHttpClient<IHangXuatKhauApi, HangXuatKhauApiClient>(c => c.B
 {
     // Bỏ qua xác thực SSL cho môi trường test/nội bộ
     ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
-}); ;
+}); 
 builder.Services.AddHttpClient<IHangNhapKhauApi, HangNhapKhauApiClient>(c => c.BaseAddress = apiBase).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
 {
     // Bỏ qua xác thực SSL cho môi trường test/nội bộ
     ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
-}); ;
+}); 
 builder.Services.AddHttpClient<IReportApi, ReportApi>(c => c.BaseAddress = reportApiBase).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
 {
     // Bỏ qua xác thực SSL cho môi trường test/nội bộ
     ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
-}); ;
+}); 
 builder.Services.AddHttpClient<IDaiLyApi, DaiLyApiClient>(c => c.BaseAddress = apiBase).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
 {
     // Bỏ qua xác thực SSL cho môi trường test/nội bộ
     ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
-}); ;
+}); 
 
 // API ảnh chụp theo lệnh (cenCFS-ITS) 
 var anhApiBase = new Uri(builder.Configuration["AnhApi:BaseUrl"]
@@ -51,6 +51,10 @@ builder.Services.AddHttpClient<IAnhLenhApi, AnhLenhApiClient>(c =>
 {
     c.BaseAddress = anhApiBase;
     c.Timeout = TimeSpan.FromSeconds(60);
+}).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+{
+    // Bỏ qua xác thực SSL cho môi trường test/nội bộ
+    ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
 });
 
 builder.Services.AddHttpClient<IReportApi, ReportApi>(c =>
@@ -64,6 +68,10 @@ builder.Services.AddHttpClient<IReportApi, ReportApi>(c =>
     {
         c.DefaultRequestHeaders.Add("X-Api-Key", apiKey);
     }
+}).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+{
+    // Bỏ qua xác thực SSL cho môi trường test/nội bộ
+    ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
 });
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
